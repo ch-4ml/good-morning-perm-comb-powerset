@@ -27,9 +27,10 @@ public class 좋은아침입니다Day3 {
 		System.out.println("\n\n중복순열");
 		permutationWithRepetition(3, new char[3]);
 	}
-
-	private static void powerset(int startIndex, boolean[] isSelected) {
-		if (startIndex == src.length) {
+	
+	// 멱집합 만들기
+	private static void powerset(int startIdx, boolean[] isSelected) {
+		if (startIdx == src.length) {
 			List<Character> result = new ArrayList<>();
 			for (int i = 0; i < src.length; i++) {
 				if (isSelected[i])
@@ -39,38 +40,42 @@ public class 좋은아침입니다Day3 {
 			return;
 		}
 
-		isSelected[startIndex] = true;
-		powerset(startIndex + 1, isSelected);
+		isSelected[startIdx] = true;
+		powerset(startIdx + 1, isSelected);
 
-		isSelected[startIndex] = false;
-		powerset(startIndex + 1, isSelected);
+		isSelected[startIdx] = false;
+		powerset(startIdx + 1, isSelected);
 	}
 	
-	private static void combination(int left, char[] c, int startIndex) {
+	
+	// 조합 만들기
+	private static void combination(int left, char[] c, int startIdx) {
 		if(left == 0) {
 			System.out.print(Arrays.toString(c) + " ");
 			return;
 		}
 		
 		// 선택
-		for(int i = startIndex; i < src.length; i++) {
+		for(int i = startIdx; i < src.length; i++) {
 			c[c.length - left] = src[i];
 			combination(left - 1, c, i + 1);
 		}
 	}
 	
-	private static void combinationWithRepetition(int left, char[] c, int startIndex) {
+	// 중복 조합 만들기
+	private static void combinationWithRepetition(int left, char[] c, int startIdx) {
 		if(left == 0) {
 			System.out.print(Arrays.toString(c) + " ");
 			return;
 		}
 		
-		for(int i = startIndex; i < src.length; i++) {
+		for(int i = startIdx; i < src.length; i++) {
 			c[c.length - left] = src[i];
 			combinationWithRepetition(left - 1, c, i);
 		}
 	}
 	
+	// 순열 만들기
 	private static void permutation(int left, char[] p, boolean[] isSelected) {
 		if(left == 0) {
 			System.out.print(Arrays.toString(p) + " ");
@@ -86,6 +91,7 @@ public class 좋은아침입니다Day3 {
 		}
 	}
 	
+	// 중복 순열 만들기
 	private static void permutationWithRepetition(int left, char[] p) {
 		if(left == 0) {
 			System.out.print(Arrays.toString(p) + " ");
