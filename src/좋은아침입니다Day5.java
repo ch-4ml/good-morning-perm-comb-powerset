@@ -1,4 +1,4 @@
-public class 좋은아침입니다Day0 {
+public class 좋은아침입니다Day5 {
 	static char[] src = { 'a', 'b', 'c', 'd' };
 
 	public static void main(String[] args) {
