@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class 좋은아침입니다Day5 {
 	static char[] src = { 'a', 'b', 'c', 'd' };
 
@@ -5,7 +7,7 @@ public class 좋은아침입니다Day5 {
 		
 //		1. src로 구성할 수 있는 부분집합을 비트 연산을 사용하여 모두 출력하시오
 		System.out.println("비트연산 부분집합");
-//		powerset();
+		powerset();
 		System.out.println();
 		System.out.println();
 
@@ -46,11 +48,48 @@ public class 좋은아침입니다Day5 {
 		System.out.println();
 	}
 	
-	private void powerset() {
+	private static void powerset() {
+		// 1 << src.length: 부분집합 개수(2^n)
 		for(int i = 0; i < (1 << src.length); i++) {
+			System.out.print("[ ");
+			// 각 자리 선택 여부 체크
 			for(int j = 0; j < src.length; j++) {
-				if(i & 1 << j)
+				if ((i & 1 << j) != 0) System.out.print(src[j] + " ");
 			}
+			System.out.print("] ");
 		}
+	}
+	
+	private static void nextPermutation(int[] numbers) { 
+		// index 배열 만들기
+		int N = numbers.length;
+		
+		// 1. 전처리 (오름차순 정렬)
+		Arrays.sort(numbers);
+	
+		// 2. 꼭대기 찾기
+		int i = N - 1;
+		while(i > 0 && numbers[i - 1] >= numbers[i]) i--;
+		
+		// 3. 내림차순으로 정렬되어 더이상 순열을 만들 수 없는 경우 체크
+		if(i == 0) return;
+		
+		// 4. 꼭대기의 바로 앞 자리(i-1) 값을 크게 만들 교환 값을 뒤에서부터 찾기
+		// 항상 존재!!
+		int j = N - 1;
+		while(numbers[i - 1] >= numbers[j]) j--;
+		
+		// 5. i-1 위치 값과 j 위치 값 교환
+		swap(numbers, i - 1, j);
+		
+		// 6. i 위치부터 만들어지는 수열을 오름차순으로 정렬
+		int k = N - 1;
+		while(i < k) swap(numbers, i++, k--);
+	}
+	
+	private static void swap(int[] indice, int i, int j) {
+		int temp = indice[i];
+		indice[i] = indice[j];
+		indice[j] = temp;
 	}
 }
